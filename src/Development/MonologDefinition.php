@@ -34,7 +34,7 @@ class MonologDefinition implements DefinitionProviderInterface
      * @param string|null $path
      * @param string      $filename
      */
-    public function __construct($path = null, $filename = 'glue.log')
+    public function __construct($path = null, $filename = 'logs.log')
     {
         $this->path = $path ?: getcwd();
         $this->filename = $filename;
@@ -49,7 +49,7 @@ class MonologDefinition implements DefinitionProviderInterface
         $handler->setConstructorArguments($this->path.DIRECTORY_SEPARATOR.$this->filename, 0, Logger::WARNING);
 
         $logger = new ObjectDefinition(Logger::class);
-        $logger->setConstructorArguments('glue');
+        $logger->setConstructorArguments('logs');
         $logger->addMethodCall('pushHandler', new Reference(HandlerInterface::class));
 
         return [

@@ -22,6 +22,8 @@ use League\Flysystem\MountManager;
 class FlysystemDefinition implements DefinitionProviderInterface
 {
     /**
+     * The default adapter to use
+     *
      * @var string
      */
     protected $default;

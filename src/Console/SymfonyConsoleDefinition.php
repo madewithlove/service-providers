@@ -40,9 +40,9 @@ class SymfonyConsoleDefinition implements DefinitionProviderInterface
      */
     public function __construct($name = 'NAME', $version = 'VERSION', $commands = [])
     {
-        $this->commands = $commands;
         $this->name = $name;
         $this->version = $version;
+        $this->commands = $commands;
     }
 
     /**

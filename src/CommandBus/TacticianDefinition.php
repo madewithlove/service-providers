@@ -68,7 +68,9 @@ class TacticianDefinition implements DefinitionProviderInterface, ImmutableConta
         $this->extractor = $this->extractor ?: new ClassNameExtractor();
         $this->inflector = $this->inflector ?: new HandleInflector();
         $this->locator = $this->locator ?: new CallableLocator(function ($commandName) {
-            return $this->container->get(preg_replace('/Command$/', 'Handler', $commandName));
+            $handler = preg_replace('/Command$/', 'Handler', $commandName);
+
+            return $this->container ? $this->container->get($handler) : new $handler;
         });
 
         $bus = new ObjectDefinition(CommandBus::class);

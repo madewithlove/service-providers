@@ -25,6 +25,19 @@ class LeagueRouteDefinition implements DefinitionProviderInterface, ImmutableCon
     use ImmutableContainerAwareTrait;
 
     /**
+     * @var string
+     */
+    protected $strategy;
+
+    /**
+     * @param string $strategy
+     */
+    public function __construct($strategy = ParamStrategy::class)
+    {
+        $this->strategy = $strategy;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getDefinitions()
@@ -41,7 +54,7 @@ class LeagueRouteDefinition implements DefinitionProviderInterface, ImmutableCon
      */
     protected function getStrategy()
     {
-        $strategy = new ObjectDefinition(ParamStrategy::class);
+        $strategy = new ObjectDefinition($this->strategy);
         if ($this->container) {
             $strategy->addMethodCall('setContainer', $this->container);
         }
