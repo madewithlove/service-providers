@@ -2,9 +2,9 @@
 use Symfony\CS\Config\Config;
 use Symfony\CS\Finder\DefaultFinder;
 
-$finder = DefaultFinder::create()->in(['bin', 'src', 'tests']);
+$finder = DefaultFinder::create()->in(['src', 'tests']);
 $header = <<<EOF
-This file is part of Glue
+This file is part of madewithlove/definitions
 
 (c) madewithlove <heroes@madewithlove.be>
 
