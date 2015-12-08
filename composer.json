@@ -1,0 +1,46 @@
+{
+    "name": "madewithlove/definitions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "madewithlove",
+            "email": "heroes@madewithlove.be",
+            "role": "Organization"
+        },
+        {
+            "name": "Maxime Fabre",
+            "email": "maxime@madewithlove.be",
+            "role": "Developper"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Madewithlove\\Definitions\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Madewithlove\\Definitions\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "mnapoli/assembly": "dev-master"
+    },
+    "require-dev": {
+        "fabpot/php-cs-fixer": "2.0.x@dev",
+        "mockery/mockery": "^0.9.4",
+        "phpunit/phpunit": "^5.0.9"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "php-cs-fixer fix"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
