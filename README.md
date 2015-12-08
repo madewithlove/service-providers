@@ -44,6 +44,7 @@ $provider = new EloquentDefinition([
         'etc' => 'etc,
     ],
 ]);
+```
 
 Available definitions:
 
@@ -104,7 +105,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/madewithlove/definitions.svg?style=flat-square
 [ico-code-quality]: https://img.shields.io/scrutinizer/g/madewithlove/definitions.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/madewithlove/definitions.svg?style=flat-square
-
 [link-packagist]: https://packagist.org/packages/madewithlove/definitions
 [link-travis]: https://travis-ci.org/madewithlove/definitions
 [link-scrutinizer]: https://scrutinizer-ci.com/g/madewithlove/definitions/code-structure
