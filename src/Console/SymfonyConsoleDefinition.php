@@ -21,12 +21,12 @@ class SymfonyConsoleDefinition implements DefinitionProviderInterface
     /**
      * @var string
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      */
-    private $version;
+    protected $version;
 
     /**
      * @var Command[]|string[]
