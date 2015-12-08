@@ -45,17 +45,33 @@ class MonologDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        return [
+            HandlerInterface::class => $this->getHandler(),
+            LoggerInterface::class => $this->getLogger(),
+            'monolog' => new Reference(LoggerInterface::class),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getHandler()
+    {
         $handler = new ObjectDefinition(RotatingFileHandler::class);
         $handler->setConstructorArguments($this->path.DIRECTORY_SEPARATOR.$this->filename, 0, Logger::WARNING);
 
+        return $handler;
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getLogger()
+    {
         $logger = new ObjectDefinition(Logger::class);
         $logger->setConstructorArguments('logs');
         $logger->addMethodCall('pushHandler', new Reference(HandlerInterface::class));
 
-        return [
-            LoggerInterface::class => $logger,
-            HandlerInterface::class => $handler,
-            'monolog' => new Reference(LoggerInterface::class),
-        ];
+        return $logger;
     }
 }

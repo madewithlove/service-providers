@@ -1,4 +1,13 @@
 <?php
+
+/*
+ * This file is part of madewithlove/definitions
+ *
+ * (c) madewithlove <heroes@madewithlove.be>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ */
+
 namespace Madewithlove\Definitions\Caching;
 
 use Assembly\ObjectDefinition;
@@ -36,15 +45,31 @@ class IlluminateCacheDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        return [
+            Store::class => $this->getStore(),
+            RepositoryInterface::class => $this->getRepository(),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getStore()
+    {
         $store = new ObjectDefinition($this->driver);
         $store->setConstructorArguments(...$this->configuration);
 
+        return $store;
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getRepository()
+    {
         $repository = new ObjectDefinition(Repository::class);
         $repository->setConstructorArguments(new Reference(Store::class));
 
-        return [
-            Store::class               => $store,
-            RepositoryInterface::class => $repository,
-        ];
+        return $repository;
     }
 }

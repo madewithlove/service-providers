@@ -19,7 +19,6 @@ use League\Tactician\CommandBus;
 use League\Tactician\Handler\CommandHandlerMiddleware;
 use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
 use League\Tactician\Handler\CommandNameExtractor\CommandNameExtractor;
-use League\Tactician\Handler\Locator\CallableLocator;
 use League\Tactician\Handler\Locator\HandlerLocator;
 use League\Tactician\Handler\Locator\InMemoryLocator;
 use League\Tactician\Handler\MethodNameInflector\HandleInflector;
@@ -51,8 +50,11 @@ class TacticianDefinition implements DefinitionProviderInterface, ImmutableConta
      * @param string $locator
      * @param string $inflector
      */
-    public function __construct($extractor = ClassNameExtractor::class, $locator = InMemoryLocator::class, $inflector = HandleInflector::class)
-    {
+    public function __construct(
+        $extractor = ClassNameExtractor::class,
+        $locator = InMemoryLocator::class,
+        $inflector = HandleInflector::class
+    ) {
         $this->extractor = $extractor;
         $this->locator = $locator;
         $this->inflector = $inflector;
@@ -63,6 +65,35 @@ class TacticianDefinition implements DefinitionProviderInterface, ImmutableConta
      */
     public function getDefinitions()
     {
+        return [
+            CommandNameExtractor::class => new ObjectDefinition($this->extractor),
+            HandlerLocator::class => new ObjectDefinition($this->locator),
+            MethodNameInflector::class => new ObjectDefinition($this->inflector),
+            Middleware::class => $this->getHandlerMiddleware(),
+            CommandBus::class => $this->getCommandBus(),
+            'bus' => new Reference(CommandBus::class),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getCommandBus()
+    {
+        $bus = new ObjectDefinition(CommandBus::class);
+        $bus->setConstructorArguments([
+            new LockingMiddleware(),
+            new Reference(Middleware::class),
+        ]);
+
+        return $bus;
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getHandlerMiddleware()
+    {
         $middleware = new ObjectDefinition(CommandHandlerMiddleware::class);
         $middleware->setConstructorArguments(
             new Reference(CommandNameExtractor::class),
@@ -70,19 +101,6 @@ class TacticianDefinition implements DefinitionProviderInterface, ImmutableConta
             new Reference(MethodNameInflector::class)
         );
 
-        $bus = new ObjectDefinition(CommandBus::class);
-        $bus->setConstructorArguments([
-            new LockingMiddleware(),
-            new Reference(Middleware::class),
-        ]);
-
-        return [
-            Middleware::class => $middleware,
-            CommandNameExtractor::class => new ObjectDefinition($this->extractor),
-            HandlerLocator::class => new ObjectDefinition($this->locator),
-            MethodNameInflector::class => new ObjectDefinition($this->inflector),
-            CommandBus::class => $bus,
-            'bus' => new Reference(CommandBus::class),
-        ];
+        return $middleware;
     }
 }

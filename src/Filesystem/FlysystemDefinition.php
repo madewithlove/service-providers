@@ -22,7 +22,7 @@ use League\Flysystem\MountManager;
 class FlysystemDefinition implements DefinitionProviderInterface
 {
     /**
-     * The default adapter to use
+     * The default adapter to use.
      *
      * @var string
      */
@@ -48,19 +48,35 @@ class FlysystemDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        return [
+            MountManager::class => $this->getMountManager(),
+            FilesystemInterface::class => $this->getFilesystem(),
+            'flysystem.mount-manager' => new Reference(MountManager::class),
+            'flysystem' => new Reference(FilesystemInterface::class),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getMountManager()
+    {
         $mountManager = new ObjectDefinition(MountManager::class);
         $mountManager->setConstructorArguments(array_map(function (AdapterInterface $adapter) {
             return new Filesystem($adapter);
         }, $this->adapters));
 
+        return $mountManager;
+    }
+
+    /**
+     * @return FactoryCallDefinition
+     */
+    protected function getFilesystem()
+    {
         $default = new FactoryCallDefinition(new Reference('flysystem.mount-manager'), 'getFilesystem');
         $default->setArguments($this->default);
 
-        return [
-            MountManager::class => $mountManager,
-            FilesystemInterface::class => $default,
-            'flysystem.mount-manager' => new Reference(MountManager::class),
-            'flysystem' => new Reference(FilesystemInterface::class),
-        ];
+        return $default;
     }
 }

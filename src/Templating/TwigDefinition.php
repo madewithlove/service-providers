@@ -55,13 +55,32 @@ class TwigDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        return [
+            Twig_LoaderInterface::class => $this->getLoader(),
+            Twig_Environment::class => $this->getEnvironment(),
+            'twig' => new Reference(Twig_Environment::class),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getLoader()
+    {
         $isViewsFolder = is_string($this->views) && is_dir($this->views);
 
-        // Define loader
         $loader = $isViewsFolder ? Twig_Loader_Filesystem::class : Twig_Loader_Array::class;
         $loader = new ObjectDefinition($loader);
         $loader->setConstructorArguments($this->views ?: []);
 
+        return $loader;
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getEnvironment()
+    {
         $twig = new ObjectDefinition(Twig_Environment::class);
         $twig->setConstructorArguments(new Reference(Twig_LoaderInterface::class), $this->options);
 
@@ -70,10 +89,6 @@ class TwigDefinition implements DefinitionProviderInterface
             $twig->addMethodCall('addExtension', $extension);
         }
 
-        return [
-            Twig_LoaderInterface::class => $loader,
-            Twig_Environment::class => $twig,
-            'twig' => new Reference(Twig_Environment::class),
-        ];
+        return $twig;
     }
 }

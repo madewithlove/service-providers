@@ -50,6 +50,17 @@ class SymfonyConsoleDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        return [
+            Application::class => $this->getApplication(),
+            'console' => new Reference(Application::class),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getApplication()
+    {
         $console = new ObjectDefinition(Application::class);
         $console->addMethodCall('setName', $this->name);
         $console->addMethodCall('setVersion', $this->version);
@@ -60,9 +71,6 @@ class SymfonyConsoleDefinition implements DefinitionProviderInterface
             $console->addMethodCall('add', $command);
         }
 
-        return [
-            Application::class => $console,
-            'console' => new Reference(Application::class),
-        ];
+        return $console;
     }
 }

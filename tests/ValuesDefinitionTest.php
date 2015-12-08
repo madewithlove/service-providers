@@ -11,6 +11,7 @@
 namespace Madewithlove\Definitions;
 
 use Assembly\Container\Container;
+
 class ValuesDefinitionTest extends TestCase
 {
     public function testCanBindConfiguration()

@@ -34,6 +34,16 @@ class EloquentDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        return [
+            Manager::class => $this->getDatabaseManager(),
+        ];
+    }
+
+    /**
+     * @return ObjectDefinition
+     */
+    protected function getDatabaseManager()
+    {
         $manager = new ObjectDefinition(Manager::class);
         foreach ($this->connections as $name => $connection) {
             $manager->addMethodCall('addConnection', $connection, $name);
@@ -42,8 +52,6 @@ class EloquentDefinition implements DefinitionProviderInterface
         $manager->addMethodCall('bootEloquent');
         $manager->addMethodCall('setAsGlobal');
 
-        return [
-            Manager::class => $manager,
-        ];
+        return $manager;
     }
 }

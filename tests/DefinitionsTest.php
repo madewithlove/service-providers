@@ -19,7 +19,6 @@ use League\Flysystem\Adapter\Local;
 use Madewithlove\Definitions\Caching\IlluminateCacheDefinition;
 use Madewithlove\Definitions\CommandBus\TacticianDefinition;
 use Madewithlove\Definitions\Console\SymfonyConsoleDefinition;
-use Madewithlove\Definitions\DefinitionTypes\ExtendDefinition;
 use Madewithlove\Definitions\Development\DebugbarDefinition;
 use Madewithlove\Definitions\Development\MonologDefinition;
 use Madewithlove\Definitions\Filesystem\FlysystemDefinition;
@@ -42,8 +41,10 @@ class DefinitionsTest extends TestCase
         $definitions = $provider->getDefinitions();
         foreach ($definitions as $key => $definition) {
             $service = $container->get($key);
-            if (!$definition instanceof ExtendDefinition) {
-                $this->assertNotInstanceOf(DefinitionInterface::class, $service);
+
+            $this->assertNotInstanceOf(DefinitionInterface::class, $service);
+            if (class_exists($key)) {
+                $this->assertInstanceOf($key, $service);
             }
         }
     }
