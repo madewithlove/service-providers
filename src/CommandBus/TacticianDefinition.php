@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions;
+namespace Madewithlove\Definitions\CommandBus;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;

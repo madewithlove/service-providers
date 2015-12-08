@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions;
+namespace Madewithlove\Definitions\Filesystem;
 
 use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
