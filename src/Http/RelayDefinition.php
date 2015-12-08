@@ -16,12 +16,14 @@ use Assembly\Reference;
 use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Container\ContainerAwareInterface;
 use League\Container\ContainerAwareTrait;
+use League\Container\ImmutableContainerAwareInterface;
+use League\Container\ImmutableContainerAwareTrait;
 use Relay\Relay;
 use Relay\RelayBuilder;
 
-class RelayDefinition implements DefinitionProviderInterface, ContainerAwareInterface
+class RelayDefinition implements DefinitionProviderInterface, ImmutableContainerAwareInterface
 {
-    use ContainerAwareTrait;
+    use ImmutableContainerAwareTrait;
 
     /**
      * @var array
