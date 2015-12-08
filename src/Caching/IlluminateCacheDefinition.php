@@ -22,8 +22,6 @@ class IlluminateCacheDefinition implements DefinitionProviderInterface
     protected $configuration;
 
     /**
-     * IlluminateCacheDefinition constructor.
-     *
      * @param string $driver
      * @param array  $configuration
      */
@@ -34,19 +32,12 @@ class IlluminateCacheDefinition implements DefinitionProviderInterface
     }
 
     /**
-     * Returns the definition to register in the container.
-     * Definitions must be indexed by their entry ID. For example:
-     *     return [
-     *         'logger' => ...
-     *         'mailer' => ...
-     *     ];
-     *
-     * @return array
+     * {@inheritdoc}
      */
     public function getDefinitions()
     {
         $store = new ObjectDefinition($this->driver);
-        $store->setConstructorArguments($this->configuration);
+        $store->setConstructorArguments(...$this->configuration);
 
         $repository = new ObjectDefinition(Repository::class);
         $repository->setConstructorArguments(new Reference(Store::class));

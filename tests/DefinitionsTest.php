@@ -11,9 +11,12 @@
 namespace Madewithlove\Definitions;
 
 use Assembly\Container\Container;
+use Illuminate\Cache\FileStore;
+use Illuminate\Filesystem\Filesystem;
 use Interop\Container\Definition\DefinitionInterface;
 use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Flysystem\Adapter\Local;
+use Madewithlove\Definitions\Caching\IlluminateCacheDefinition;
 use Madewithlove\Definitions\CommandBus\TacticianDefinition;
 use Madewithlove\Definitions\Console\SymfonyConsoleDefinition;
 use Madewithlove\Definitions\DefinitionTypes\ExtendDefinition;
@@ -45,8 +48,22 @@ class DefinitionsTest extends TestCase
         }
     }
 
+    public function testCanSerializeDefinitions()
+    {
+        $definitions = [];
+        $providers = $this->provideDefinitions();
+        foreach ($providers as $provider) {
+            $definitions = array_merge($definitions, $provider[0]->getDefinitions());
+        }
+
+        $serialized = serialize($definitions);
+        $unserialized = unserialize($serialized);
+
+        $this->assertEquals($unserialized, $definitions);
+    }
+
     /**
-     * @return array
+     * @return DefinitionProviderInterface[][]
      */
     public function provideDefinitions()
     {
@@ -61,6 +78,7 @@ class DefinitionsTest extends TestCase
             [new ZendDiactorosDefinition()],
             [new SymfonyConsoleDefinition()],
             [new TwigDefinition()],
+            [new IlluminateCacheDefinition(FileStore::class, [new Filesystem(), __DIR__])],
         ];
     }
 }

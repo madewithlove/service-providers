@@ -16,6 +16,7 @@ use Assembly\Reference;
 use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Container\ImmutableContainerAwareInterface;
 use League\Container\ImmutableContainerAwareTrait;
+use Relay\MiddlewareInterface;
 use Relay\Relay;
 use Relay\RelayBuilder;
 
@@ -37,22 +38,36 @@ class RelayDefinition implements DefinitionProviderInterface, ImmutableContainer
     }
 
     /**
+     * Resolve a middleware
+     *
+     * @param string|object $middleware
+     *
+     * @return MiddlewareInterface
+     */
+    public function resolve($middleware)
+    {
+        if (!$this->container || !is_string($middleware)) {
+            return new $middleware;
+        }
+
+        return $this->container->get($middleware);
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getDefinitions()
     {
         $relayFactory = new ObjectDefinition(RelayBuilder::class);
-        $relayFactory->setConstructorArguments(function ($callable) {
-            return is_string($callable) ? $this->container->get($callable) : $callable;
-        });
+        $relayFactory->setConstructorArguments([$this, 'resolve']);
 
         $relay = new FactoryCallDefinition(new Reference(RelayBuilder::class), 'newInstance');
         $relay->setArguments($this->middlewares);
 
         return [
             RelayBuilder::class => $relayFactory,
-            Relay::class => $relay,
-            'pipeline' => new Reference(Relay::class),
+            Relay::class        => $relay,
+            'pipeline'          => new Reference(Relay::class),
         ];
     }
 }
