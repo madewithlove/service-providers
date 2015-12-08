@@ -57,7 +57,7 @@ class DefinitionsTest extends TestCase
             [new LeagueRouteDefinition()],
             [new MonologDefinition()],
             [new RelayDefinition()],
-            [new TacticianDefinition(['FooCommand' => 'FooHandler'])],
+            [new TacticianDefinition()],
             [new ZendDiactorosDefinition()],
             [new SymfonyConsoleDefinition()],
             [new TwigDefinition()],

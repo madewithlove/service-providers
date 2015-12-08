@@ -14,8 +14,6 @@ use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
 use Interop\Container\Definition\DefinitionProviderInterface;
-use League\Container\ContainerAwareInterface;
-use League\Container\ContainerAwareTrait;
 use League\Container\ImmutableContainerAwareInterface;
 use League\Container\ImmutableContainerAwareTrait;
 use Relay\Relay;
