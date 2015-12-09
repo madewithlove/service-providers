@@ -17,9 +17,9 @@ use Illuminate\Cache\RedisStore;
 use Illuminate\Cache\Repository;
 use Illuminate\Contracts\Cache\Repository as RepositoryInterface;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Contracts\Redis\Database;
 use Illuminate\Filesystem\Filesystem;
 use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
-use Redis;
 
 class IlluminateCacheDefinition extends AbstractDefinitionProvider
 {
@@ -55,7 +55,17 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
         ];
 
         if ($this->driver === RedisStore::class) {
-            $definitions[Redis::class] = new ObjectDefinition(Redis::class);
+            $redis = new ObjectDefinition(Database::class);
+            $redis->setConstructorArguments([
+                'cluster' => false,
+                'default' => [
+                    'host' => '127.0.0.1',
+                    'port' => 6379,
+                    'database' => 1,
+                ],
+            ]);
+
+            $definitions[Database::class] = $redis;
         }
 
         return $definitions;
@@ -70,7 +80,7 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
 
         switch ($this->driver) {
             case RedisStore::class:
-                $store->setConstructorArguments(new Reference(Redis::class), ...$this->configuration);
+                $store->setConstructorArguments(new Reference(Database::class), ...$this->configuration);
                 break;
 
             default:
