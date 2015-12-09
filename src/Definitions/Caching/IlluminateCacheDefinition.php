@@ -48,12 +48,17 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
      */
     public function getDefinitions()
     {
-        return [
+        $definitions = [
             Filesystem::class => new ObjectDefinition(Filesystem::class),
-            Redis::class => new ObjectDefinition(Redis::class),
             Store::class => $this->getStore(),
             RepositoryInterface::class => $this->getRepository(),
         ];
+
+        if ($this->driver === RedisStore::class) {
+            $definitions[Redis::class] = new ObjectDefinition(Redis::class);
+        }
+
+        return $definitions;
     }
 
     /**
