@@ -27,7 +27,7 @@
     "require": {
         "php": ">=5.6.0",
         "league/container": "^2.0",
-        "mnapoli/assembly": "dev-master"
+        "mnapoli/assembly": "^0.2.0"
     },
     "require-dev": {
         "fabpot/php-cs-fixer": "2.0.x@dev",
@@ -55,6 +55,5 @@
         "test": "phpunit",
         "lint": "php-cs-fixer fix"
     },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    "minimum-stability": "stable"
 }
