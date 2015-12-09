@@ -8,12 +8,11 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions;
+namespace Madewithlove\Definitions\Definitions;
 
 use Assembly\ParameterDefinition;
-use Interop\Container\Definition\DefinitionProviderInterface;
 
-class ValuesDefinition implements DefinitionProviderInterface
+class ValuesDefinition extends AbstractDefinitionProvider
 {
     /**
      * @var string

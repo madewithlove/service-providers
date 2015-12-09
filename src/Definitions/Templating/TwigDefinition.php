@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Templating;
+namespace Madewithlove\Definitions\Definitions\Templating;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 use Twig_Environment;
 use Twig_Extension;
 use Twig_Loader_Array;
 use Twig_Loader_Filesystem;
 use Twig_LoaderInterface;
 
-class TwigDefinition implements DefinitionProviderInterface
+class TwigDefinition extends AbstractDefinitionProvider
 {
     /**
      * Path to the views or a list of views.

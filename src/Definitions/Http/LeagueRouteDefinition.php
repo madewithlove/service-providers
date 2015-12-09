@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Http;
+namespace Madewithlove\Definitions\Definitions\Http;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Container\Container;
 use League\Container\ImmutableContainerAwareInterface;
 use League\Container\ImmutableContainerAwareTrait;
 use League\Route\RouteCollection;
 use League\Route\Strategy\ParamStrategy;
 use League\Route\Strategy\StrategyInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
-class LeagueRouteDefinition implements DefinitionProviderInterface, ImmutableContainerAwareInterface
+class LeagueRouteDefinition extends AbstractDefinitionProvider implements ImmutableContainerAwareInterface
 {
     use ImmutableContainerAwareTrait;
 

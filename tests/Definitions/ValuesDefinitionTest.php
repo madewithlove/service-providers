@@ -8,9 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions;
+namespace Madewithlove\Definitions\Definitions;
 
 use Assembly\Container\Container;
+use Madewithlove\Definitions\TestCase;
 
 class ValuesDefinitionTest extends TestCase
 {

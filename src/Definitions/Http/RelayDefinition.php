@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Http;
+namespace Madewithlove\Definitions\Definitions\Http;
 
 use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Container\ImmutableContainerAwareInterface;
 use League\Container\ImmutableContainerAwareTrait;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 use Relay\MiddlewareInterface;
 use Relay\Relay;
 use Relay\RelayBuilder;
 
-class RelayDefinition implements DefinitionProviderInterface, ImmutableContainerAwareInterface
+class RelayDefinition extends AbstractDefinitionProvider implements ImmutableContainerAwareInterface
 {
     use ImmutableContainerAwareTrait;
 

@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Templating;
+namespace Madewithlove\Definitions\Definitions\Templating;
 
 use Assembly\Container\Container;
 use Madewithlove\Definitions\TestCase;

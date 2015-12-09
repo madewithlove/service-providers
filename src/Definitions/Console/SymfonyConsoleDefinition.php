@@ -8,15 +8,15 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Console;
+namespace Madewithlove\Definitions\Definitions\Console;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 
-class SymfonyConsoleDefinition implements DefinitionProviderInterface
+class SymfonyConsoleDefinition extends AbstractDefinitionProvider
 {
     /**
      * @var string

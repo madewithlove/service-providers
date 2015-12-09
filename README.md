@@ -19,13 +19,29 @@ $ composer require madewithlove/definitions
 
 ## Usage
 
+### Standalone
+
+The definitions in this package leverage Assembly's [DefinitionResolver](https://github.com/mnapoli/assembly/blob/master/src/Container/DefinitionResolver.php) to self-resolve.
+This allows them to be used standalone without a `definition-interop` compatible container or anything:
+
+```php
+$provider = new Madewithlove\Definitions\Definitions\CommandBus\TacticianDefinition();
+$commandBus = $provider->resolve(League\Tactician\CommandBus::class);
+
+$commandBus->handle(new SomeCommand());
+```
+
+### With a definition-interop container
+
 For definitions without configuration, just create a new instance of the definition and add it to any `definition-interop` compatible project:
 
 ``` php
 $provider = new LeagueRouteDefinition();
 
 // Add to a definition-interop project
-$container->addDefinitionProvider($provider);
+$container = new Assembly\Container\Container([], [
+    $provider,
+]);
 
 // Works
 $container->get(RouteCollection::class);
@@ -49,7 +65,9 @@ $provider = new EloquentDefinition([
 Available definitions:
 
 ```
-src
+├── AbstractDefinitionProvider.php
+├── Caching
+│   └── IlluminateCacheDefinition.php
 ├── CommandBus
 │   └── TacticianDefinition.php
 ├── Console

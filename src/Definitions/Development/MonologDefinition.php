@@ -8,17 +8,17 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Development;
+namespace Madewithlove\Definitions\Definitions\Development;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 use Monolog\Handler\HandlerInterface;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 use Psr\Log\LoggerInterface;
 
-class MonologDefinition implements DefinitionProviderInterface
+class MonologDefinition extends AbstractDefinitionProvider
 {
     /**
      * @var string

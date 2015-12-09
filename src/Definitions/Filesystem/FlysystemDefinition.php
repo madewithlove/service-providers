@@ -8,18 +8,18 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Filesystem;
+namespace Madewithlove\Definitions\Definitions\Filesystem;
 
 use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Filesystem;
 use League\Flysystem\FilesystemInterface;
 use League\Flysystem\MountManager;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
-class FlysystemDefinition implements DefinitionProviderInterface
+class FlysystemDefinition extends AbstractDefinitionProvider
 {
     /**
      * The default adapter to use.

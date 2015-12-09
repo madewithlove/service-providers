@@ -8,19 +8,19 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Http;
+namespace Madewithlove\Definitions\Definitions\Http;
 
 use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Zend\Diactoros\Response;
 use Zend\Diactoros\ServerRequestFactory;
 
-class ZendDiactorosDefinition implements DefinitionProviderInterface
+class ZendDiactorosDefinition extends AbstractDefinitionProvider
 {
     /**
      * {@inheritdoc}

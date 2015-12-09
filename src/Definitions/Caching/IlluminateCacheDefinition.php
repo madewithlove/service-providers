@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Caching;
+namespace Madewithlove\Definitions\Definitions\Caching;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
@@ -16,9 +16,9 @@ use Illuminate\Cache\FileStore;
 use Illuminate\Cache\Repository;
 use Illuminate\Contracts\Cache\Repository as RepositoryInterface;
 use Illuminate\Contracts\Cache\Store;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
-class IlluminateCacheDefinition implements DefinitionProviderInterface
+class IlluminateCacheDefinition extends AbstractDefinitionProvider
 {
     /**
      * @var string

@@ -8,11 +8,10 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\CommandBus;
+namespace Madewithlove\Definitions\Definitions\CommandBus;
 
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
-use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Container\ImmutableContainerAwareInterface;
 use League\Container\ImmutableContainerAwareTrait;
 use League\Tactician\CommandBus;
@@ -25,8 +24,9 @@ use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use League\Tactician\Handler\MethodNameInflector\MethodNameInflector;
 use League\Tactician\Middleware;
 use League\Tactician\Plugins\LockingMiddleware;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
-class TacticianDefinition implements DefinitionProviderInterface, ImmutableContainerAwareInterface
+class TacticianDefinition extends AbstractDefinitionProvider implements ImmutableContainerAwareInterface
 {
     use ImmutableContainerAwareTrait;
 

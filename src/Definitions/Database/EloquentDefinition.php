@@ -8,13 +8,13 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Database;
+namespace Madewithlove\Definitions\Definitions\Database;
 
 use Assembly\ObjectDefinition;
 use Illuminate\Database\Capsule\Manager;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
-class EloquentDefinition implements DefinitionProviderInterface
+class EloquentDefinition extends AbstractDefinitionProvider
 {
     /**
      * @var array

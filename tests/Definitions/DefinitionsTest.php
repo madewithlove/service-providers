@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions;
+namespace Madewithlove\Definitions\Definitions;
 
 use Assembly\Container\Container;
 use Illuminate\Cache\FileStore;
@@ -16,16 +16,17 @@ use Illuminate\Filesystem\Filesystem;
 use Interop\Container\Definition\DefinitionInterface;
 use Interop\Container\Definition\DefinitionProviderInterface;
 use League\Flysystem\Adapter\Local;
-use Madewithlove\Definitions\Caching\IlluminateCacheDefinition;
-use Madewithlove\Definitions\CommandBus\TacticianDefinition;
-use Madewithlove\Definitions\Console\SymfonyConsoleDefinition;
-use Madewithlove\Definitions\Development\DebugbarDefinition;
-use Madewithlove\Definitions\Development\MonologDefinition;
-use Madewithlove\Definitions\Filesystem\FlysystemDefinition;
-use Madewithlove\Definitions\Http\LeagueRouteDefinition;
-use Madewithlove\Definitions\Http\RelayDefinition;
-use Madewithlove\Definitions\Http\ZendDiactorosDefinition;
-use Madewithlove\Definitions\Templating\TwigDefinition;
+use Madewithlove\Definitions\Definitions\Caching\IlluminateCacheDefinition;
+use Madewithlove\Definitions\Definitions\CommandBus\TacticianDefinition;
+use Madewithlove\Definitions\Definitions\Console\SymfonyConsoleDefinition;
+use Madewithlove\Definitions\Definitions\Development\DebugbarDefinition;
+use Madewithlove\Definitions\Definitions\Development\MonologDefinition;
+use Madewithlove\Definitions\Definitions\Filesystem\FlysystemDefinition;
+use Madewithlove\Definitions\Definitions\Http\LeagueRouteDefinition;
+use Madewithlove\Definitions\Definitions\Http\RelayDefinition;
+use Madewithlove\Definitions\Definitions\Http\ZendDiactorosDefinition;
+use Madewithlove\Definitions\Definitions\Templating\TwigDefinition;
+use Madewithlove\Definitions\TestCase;
 
 class DefinitionsTest extends TestCase
 {

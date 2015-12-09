@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\Definitions\Development;
+namespace Madewithlove\Definitions\Definitions\Development;
 
 use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
@@ -16,9 +16,9 @@ use Assembly\Reference;
 use DebugBar\DebugBar;
 use DebugBar\JavascriptRenderer;
 use DebugBar\StandardDebugBar;
-use Interop\Container\Definition\DefinitionProviderInterface;
+use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
-class DebugbarDefinition implements DefinitionProviderInterface
+class DebugbarDefinition extends AbstractDefinitionProvider
 {
     /**
      * {@inheritdoc}
