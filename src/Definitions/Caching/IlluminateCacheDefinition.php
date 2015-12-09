@@ -13,10 +13,13 @@ namespace Madewithlove\Definitions\Definitions\Caching;
 use Assembly\ObjectDefinition;
 use Assembly\Reference;
 use Illuminate\Cache\FileStore;
+use Illuminate\Cache\RedisStore;
 use Illuminate\Cache\Repository;
 use Illuminate\Contracts\Cache\Repository as RepositoryInterface;
 use Illuminate\Contracts\Cache\Store;
+use Illuminate\Filesystem\Filesystem;
 use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
+use Redis;
 
 class IlluminateCacheDefinition extends AbstractDefinitionProvider
 {
@@ -46,6 +49,7 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
     public function getDefinitions()
     {
         return [
+            Redis::class => new ObjectDefinition(Redis::class),
             Store::class => $this->getStore(),
             RepositoryInterface::class => $this->getRepository(),
         ];
@@ -57,7 +61,17 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
     protected function getStore()
     {
         $store = new ObjectDefinition($this->driver);
-        $store->setConstructorArguments(...$this->configuration);
+
+        switch ($this->driver) {
+            case RedisStore::class:
+                $store->setConstructorArguments(new Reference(Redis::class), ...$this->configuration);
+                break;
+
+            default:
+            case FileStore::class:
+                $store->setConstructorArguments(new Filesystem(), ...$this->configuration);
+                break;
+        }
 
         return $store;
     }
