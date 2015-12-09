@@ -49,6 +49,7 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
     public function getDefinitions()
     {
         return [
+            Filesystem::class => new ObjectDefinition(Filesystem::class),
             Redis::class => new ObjectDefinition(Redis::class),
             Store::class => $this->getStore(),
             RepositoryInterface::class => $this->getRepository(),
@@ -69,7 +70,7 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
 
             default:
             case FileStore::class:
-                $store->setConstructorArguments(new Filesystem(), ...$this->configuration);
+                $store->setConstructorArguments(new Reference(Filesystem::class), ...$this->configuration);
                 break;
         }
 
