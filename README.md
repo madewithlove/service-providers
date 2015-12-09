@@ -62,7 +62,17 @@ $provider = new EloquentDefinition([
 ]);
 ```
 
-Available definitions:
+### Container aware definitions
+
+Some definitions implement `ContainerAwareInterface` _facultatively_ per example if you'd like Relay to be able to resolve middlewares from a container, etc.
+To make them fully capable, simply call `setContainer` on them:
+
+```php
+$definition = new RelayDefinition([Middleware::class, 'some-middleware']);
+$definition->setContainer($container);
+```
+
+### Available definitions
 
 ```
 ├── AbstractDefinitionProvider.php
