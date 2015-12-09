@@ -17,7 +17,8 @@ use Illuminate\Cache\RedisStore;
 use Illuminate\Cache\Repository;
 use Illuminate\Contracts\Cache\Repository as RepositoryInterface;
 use Illuminate\Contracts\Cache\Store;
-use Illuminate\Contracts\Redis\Database;
+use Illuminate\Contracts\Redis\Database as DatabaseInterface;
+use Illuminate\Redis\Database;
 use Illuminate\Filesystem\Filesystem;
 use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
@@ -65,7 +66,7 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
                 ],
             ]);
 
-            $definitions[Database::class] = $redis;
+            $definitions[DatabaseInterface::class] = $redis;
         }
 
         return $definitions;
@@ -80,7 +81,7 @@ class IlluminateCacheDefinition extends AbstractDefinitionProvider
 
         switch ($this->driver) {
             case RedisStore::class:
-                $store->setConstructorArguments(new Reference(Database::class), ...$this->configuration);
+                $store->setConstructorArguments(new Reference(DatabaseInterface::class), ...$this->configuration);
                 break;
 
             default:
