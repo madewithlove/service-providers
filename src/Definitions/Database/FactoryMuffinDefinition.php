@@ -1,16 +1,23 @@
 <?php
+
+/*
+ * This file is part of madewithlove/definitions
+ *
+ * (c) madewithlove <heroes@madewithlove.be>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ */
+
 namespace Madewithlove\Definitions\Definitions\Database;
 
-use Assembly\FactoryCallDefinition;
 use Assembly\ObjectDefinition;
 use Interop\Container\Definition\DefinitionProviderInterface;
-use League\FactoryMuffin\Facade;
 use League\FactoryMuffin\Factory;
 
 class FactoryMuffinDefinition implements DefinitionProviderInterface
 {
     /**
-     * Path to the factoriese
+     * Path to the factoriese.
      *
      * @var string
      */

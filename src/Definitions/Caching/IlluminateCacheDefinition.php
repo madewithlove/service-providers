@@ -18,8 +18,8 @@ use Illuminate\Cache\Repository;
 use Illuminate\Contracts\Cache\Repository as RepositoryInterface;
 use Illuminate\Contracts\Cache\Store;
 use Illuminate\Contracts\Redis\Database as DatabaseInterface;
-use Illuminate\Redis\Database;
 use Illuminate\Filesystem\Filesystem;
+use Illuminate\Redis\Database;
 use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
 class IlluminateCacheDefinition extends AbstractDefinitionProvider
