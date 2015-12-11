@@ -36,6 +36,11 @@ class FactoryMuffinDefinition implements DefinitionProviderInterface
      */
     public function getDefinitions()
     {
+        // Cancel if no factories
+        if (!is_dir($this->path)) {
+            return [];
+        }
+
         $factory = new ObjectDefinition(Factory::class);
         $factory->addMethodCall('loadFactories', $this->path);
 
