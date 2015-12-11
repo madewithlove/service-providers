@@ -23,7 +23,6 @@ use League\Tactician\Handler\Locator\InMemoryLocator;
 use League\Tactician\Handler\MethodNameInflector\HandleInflector;
 use League\Tactician\Handler\MethodNameInflector\MethodNameInflector;
 use League\Tactician\Middleware;
-use League\Tactician\Plugins\LockingMiddleware;
 use Madewithlove\Definitions\Definitions\AbstractDefinitionProvider;
 
 class TacticianDefinition extends AbstractDefinitionProvider implements ImmutableContainerAwareInterface
