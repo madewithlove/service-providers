@@ -46,10 +46,8 @@ class RelayDefinition extends AbstractDefinitionProvider implements ImmutableCon
      */
     public function resolve($middleware)
     {
-        if (!$this->container && !is_string($middleware)) {
-            return $middleware;
-        } elseif (!$this->container && is_string($middleware)) {
-            return new $middleware();
+        if (!$this->container) {
+            return is_string($middleware) ? new $middleware : $middleware;
         }
 
         return $this->container->get($middleware);
