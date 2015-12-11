@@ -81,10 +81,7 @@ class TacticianDefinition extends AbstractDefinitionProvider implements Immutabl
     protected function getCommandBus()
     {
         $bus = new ObjectDefinition(CommandBus::class);
-        $bus->setConstructorArguments([
-            new LockingMiddleware(),
-            new Reference(Middleware::class),
-        ]);
+        $bus->setConstructorArguments([new Reference(Middleware::class)]);
 
         return $bus;
     }
