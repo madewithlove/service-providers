@@ -51,7 +51,7 @@ class ProvidersTest extends TestCase
     public function provideProviders()
     {
         return [
-            [new ParametersServiceProvider('config', ['foo' => 'bar'])],
+            [new ParametersServiceProvider(['foo' => 'bar'])],
             [new FlysystemServiceProvider('local', ['local' => new Local(__DIR__)])],
             [new DebugbarServiceProvider()],
             [new LeagueRouteServiceProvider()],

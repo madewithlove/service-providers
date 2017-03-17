@@ -13,9 +13,8 @@ namespace Madewithlove\ServiceProviders;
 use League\Container\Container;
 use League\Container\ReflectionContainer;
 use Madewithlove\ServiceProviders\Bridges\LeagueContainerDecorator;
-use PHPUnit_Framework_TestCase;
 
-abstract class TestCase extends PHPUnit_Framework_TestCase
+abstract class TestCase extends \PHPUnit\Framework\TestCase
 {
     /**
      * @param array $providers

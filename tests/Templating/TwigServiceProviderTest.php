@@ -36,7 +36,7 @@ class TwigServiceProviderTest extends TestCase
         $twig = $container->get(Twig_Environment::class);
 
         $extensions = $twig->getExtensions();
-        $this->assertArrayHasKey('debug', $extensions);
+        $this->assertArrayHasKey(Twig_Extension_Debug::class, $extensions);
 
         $this->assertInstanceOf(Twig_Loader_Array::class, $twig->getLoader());
         $this->assertTrue($twig->isAutoReload());

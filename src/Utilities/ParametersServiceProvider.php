@@ -20,7 +20,7 @@ class ParametersServiceProvider implements ServiceProviderInterface
     protected $values = [];
 
     /**
-     * @param array  $values
+     * @param array $values
      */
     public function __construct(array $values)
     {
