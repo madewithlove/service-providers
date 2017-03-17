@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This repository contains several [service-provider] compatible definitions for various popular packages.
+This repository contains several [service-provider] compatible service providers for various popular packages.
 
 ## Install
 
@@ -97,7 +97,7 @@ new PrefixedProvider('config', new ParametersServiceProvider([
 $container->get('config.foo'); // (string) "bar"
 ```
 
-## Available definitions
+## Available service providers
 
 ```
 ├── Bridges
