@@ -7,7 +7,7 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This repository contains several [service-provider] compatible service providers for various popular packages.
+A repository of universal service providers for [service-providers] compliant containers
 
 ## Install
 

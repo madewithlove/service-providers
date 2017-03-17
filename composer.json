@@ -1,6 +1,6 @@
 {
     "name": "madewithlove/service-providers",
-    "description": "Service providers for common packages for interop service-provider compatible projects",
+    "description": "A repository of universal service providers for service-providers compliant containers",
     "license": "MIT",
     "authors": [
         {
