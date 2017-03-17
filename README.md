@@ -17,6 +17,8 @@ Via Composer
 $ composer require madewithlove/service-providers
 ```
 
+This repository **does not** ship with any third party package, you will need to install them yourself. If per example you need the `FlysystemServiceProvider` you would install Flysystem alongside this package.
+
 ## Usage
 
 ### Service providers
