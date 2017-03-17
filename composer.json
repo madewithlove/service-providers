@@ -1,6 +1,6 @@
 {
-    "name": "madewithlove/definitions",
-    "description": "Definitions for common packages for definition-interop compatible projects",
+    "name": "madewithlove/service-providers",
+    "description": "Service providers for common packages for interop service-provider compatible projects",
     "license": "MIT",
     "authors": [
         {
@@ -16,21 +16,20 @@
     ],
     "autoload": {
         "psr-4": {
-            "Madewithlove\\Definitions\\": "src"
+            "Madewithlove\\ServiceProviders\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Madewithlove\\Definitions\\": "tests"
+            "Madewithlove\\ServiceProviders\\": "tests"
         }
     },
     "require": {
         "php": ">=5.6.0",
-        "league/container": "^2.0",
-        "mnapoli/assembly": "^0.2.0"
+        "container-interop/service-provider": "dev-master",
+        "league/container": "^2.4"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "2.0.x@dev",
         "illuminate/cache": "^5.1",
         "illuminate/database": "^5.1",
         "illuminate/filesystem": "^5.1",
@@ -39,6 +38,7 @@
         "league/flysystem": "^1.0",
         "league/route": "2.0.x@dev",
         "league/tactician": "^0.6.1",
+        "madewithlove/php-cs-fixer-config": "^1.2",
         "maximebf/debugbar": "^1.10",
         "mockery/mockery": "^0.9.4",
         "monolog/monolog": "^1.17",
@@ -48,14 +48,18 @@
         "twig/twig": "^1.23",
         "zendframework/zend-diactoros": "^1.2"
     },
+    "scripts": {
+        "test": "phpunit",
+        "lint": "php-cs-fixer fix"
+    },
     "extra": {
         "branch-alias": {
             "dev-master": "1.0-dev"
         }
     },
-    "scripts": {
-        "test": "phpunit",
-        "lint": "php-cs-fixer fix"
-    },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
 }
