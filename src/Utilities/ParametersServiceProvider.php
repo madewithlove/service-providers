@@ -15,22 +15,15 @@ use Interop\Container\ServiceProviderInterface;
 class ParametersServiceProvider implements ServiceProviderInterface
 {
     /**
-     * @var string
-     */
-    protected $key;
-
-    /**
      * @var array
      */
     protected $values = [];
 
     /**
-     * @param string $key
      * @param array  $values
      */
-    public function __construct($key, array $values)
+    public function __construct(array $values)
     {
-        $this->key = $key;
         $this->values = $values;
     }
 
@@ -39,11 +32,11 @@ class ParametersServiceProvider implements ServiceProviderInterface
      */
     public function getServices()
     {
-        $definitions = [];
+        $services = [];
         foreach ($this->values as $key => $value) {
-            $definitions[$this->key.'.'.$key] = new Parameter($value);
+            $services[$key] = new Parameter($value);
         }
 
-        return $definitions;
+        return $services;
     }
 }

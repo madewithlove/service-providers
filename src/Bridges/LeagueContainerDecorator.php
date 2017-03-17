@@ -8,12 +8,12 @@
  * For the full copyright and license information, please view the LICENSE
  */
 
-namespace Madewithlove\ServiceProviders;
+namespace Madewithlove\ServiceProviders\Bridges;
 
 use Interop\Container\ServiceProviderInterface;
 use League\Container\ServiceProvider\AbstractServiceProvider;
 
-class ServiceProviderDecorator extends AbstractServiceProvider
+class LeagueContainerDecorator extends AbstractServiceProvider
 {
     /**
      * @var ServiceProviderInterface

@@ -45,7 +45,7 @@ class PrefixedProvider implements ServiceProviderInterface
         $prefixed = [];
         $services = $this->provider->getServices();
         foreach ($services as $key => $value) {
-            $prefixed[$this->prefix.$key] = $value;
+            $prefixed[$this->prefix.'.'.$key] = $value;
         }
 
         return $prefixed;

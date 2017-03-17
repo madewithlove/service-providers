@@ -11,15 +11,16 @@
 namespace Madewithlove\ServiceProviders;
 
 use Madewithlove\ServiceProviders\Utilities\ParametersServiceProvider;
+use Madewithlove\ServiceProviders\Utilities\PrefixedProvider;
 
 class ParametersServiceProviderTest extends TestCase
 {
     public function testCanBindConfiguration()
     {
         $container = $this->getContainerfromProviders([
-            new ParametersServiceProvider('config', [
+            new PrefixedProvider('config', new ParametersServiceProvider([
                 'foo' => 'bar',
-            ]),
+            ])),
         ]);
 
         $this->assertEquals('bar', $container->get('config.foo'));

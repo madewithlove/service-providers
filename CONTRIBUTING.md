@@ -1,7 +1,7 @@
 # Contributing
 Contributions are **welcome** and will be fully **credited**.
 
-We accept contributions via Pull Requests on [Github](https://github.com/madewithlove/definitions).
+We accept contributions via Pull Requests on [Github](https://github.com/madewithlove/service-providers).
 
 ## Pull Requests
 - **[Symfony Coding Standard](http://symfony.com/doc/current/contributing/code/standards.html)** - The easiest way to apply the conventions is to install [PHP Code Sniffer](http://pear.php.net/package/PHP_CodeSniffer).

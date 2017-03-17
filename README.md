@@ -7,50 +7,42 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-This repository contains several `definition-interop` compatible definitions for various popular packages.
+This repository contains several [service-provider] compatible definitions for various popular packages.
 
 ## Install
 
 Via Composer
 
 ``` bash
-$ composer require madewithlove/definitions
+$ composer require madewithlove/service-providers
 ```
 
 ## Usage
 
-### Standalone
+### Service providers
 
-The definitions in this package leverage Assembly's [DefinitionResolver](https://github.com/mnapoli/assembly/blob/master/src/Container/DefinitionResolver.php) to self-resolve.
-This allows them to be used standalone without a `definition-interop` compatible container or anything:
+If the container you're using is already compatible with [service-provider] then register it like you simply would normally.
 
+Otherwise you can use a decorator or bridge, you can find some on Packagist, and this package ships with some as well, per example for [league/container]:
+ 
 ```php
-$provider = new Madewithlove\Definitions\Definitions\CommandBus\TacticianDefinition();
-$commandBus = $provider->resolve(League\Tactician\CommandBus::class);
+use League\Flysystem\FilesystemInterface;
+use League\League\Container;
+use Madewithlove\ServiceProviders\Bridges\LeagueContainerDecorator;
+use Madewithlove\ServiceProviders\Filesystem\FlysystemServiceProvider;
 
-$commandBus->handle(new SomeCommand());
+$container = new Container();
+$container->addServiceProvider(
+    new LeagueContainerDecorator(new FlysystemServiceProvider(...))
+);
+
+$filesystem = $container->get(FilesystemInterface::class);
 ```
 
-### With a definition-interop container
-
-For definitions without configuration, just create a new instance of the definition and add it to any `definition-interop` compatible project:
-
-``` php
-$provider = new LeagueRouteDefinition();
-
-// Add to a definition-interop project
-$container = new Assembly\Container\Container([], [
-    $provider,
-]);
-
-// Works
-$container->get(RouteCollection::class);
-```
-
-For definitions with configuration, simply pass it as constructor argument. See the definition's signature for what options they take:
+For providers with configuration, you can pass it as constructor argument. See the provider's signature for what options they take:
 
 ```php
-$provider = new EloquentDefinition([
+$provider = new EloquentServiceProvider([
     'local' => [
         'driver' => 'sqlite',
         'etc' => 'etc,
@@ -62,40 +54,79 @@ $provider = new EloquentDefinition([
 ]);
 ```
 
-### Container aware definitions
+### Utilities
 
-Some definitions implement `ContainerAwareInterface` _facultatively_ per example if you'd like Relay to be able to resolve middlewares from a container, etc.
-To make them fully capable, simply call `setContainer` on them:
+This package also ships with some utilities to write your own service providers:
+
+**Alias**: An alias to an existing value in the container:
 
 ```php
-$definition = new RelayDefinition([Middleware::class, 'some-middleware']);
-$definition->setContainer($container);
+public function getServices()
+{
+    return ['my_alias' => new Alias('to_something_else')];
+}
 ```
 
-### Available definitions
+**Parameter**: A plain value to store in the container:
+
+```php
+public function getServices()
+{
+    return ['views_path' => new Parameter(__DIR__.'/views)];
+}
+```
+
+**ParametersServiceProvider**: A blank service provider to quickly set multiple values in the container:
+
+```php
+new ParametersServiceProvider([
+    'foo' => 'bar',
+    'bar' => 'baz',
+]);
+
+$container->get('foo'); // (string) "bar"
+```
+
+**PrefixedProvider**: A decorator to prefix a provider's services with a given string:
+
+```php
+new PrefixedProvider('config', new ParametersServiceProvider([
+    'foo' => 'bar',
+]));
+
+$container->get('config.foo'); // (string) "bar"
+```
+
+## Available definitions
 
 ```
-├── AbstractDefinitionProvider.php
-├── Caching
-│   └── IlluminateCacheDefinition.php
+├── Bridges
+│   └── LeagueContainerDecorator.php
 ├── CommandBus
-│   └── TacticianDefinition.php
+│   └── TacticianServiceProvider.php
 ├── Console
-│   └── SymfonyConsoleDefinition.php
+│   └── SymfonyConsoleServiceProvider.php
 ├── Database
-│   └── EloquentDefinition.php
+│   ├── EloquentServiceProvider.php
+│   └── FactoryMuffinServiceProvider.php
 ├── Development
-│   ├── DebugbarDefinition.php
-│   └── MonologDefinition.php
+│   ├── DebugbarServiceProvider.php
+│   └── MonologServiceProvider.php
+├── Events
+│   └── LeagueEventsServiceProvider.php
 ├── Filesystem
-│   └── FlysystemDefinition.php
+│   └── FlysystemServiceProvider.php
 ├── Http
-│   ├── LeagueRouteDefinition.php
-│   ├── RelayDefinition.php
-│   └── ZendDiactorosDefinition.php
+│   ├── LeagueRouteServiceProvider.php
+│   ├── RelayServiceProvider.php
+│   └── ZendDiactorosServiceProvider.php
 ├── Templating
-│   └── TwigDefinition.php
-└── ValuesDefinition.php
+│   └── TwigServiceProvider.php
+└── Utilities
+    ├── Alias.php
+    ├── Parameter.php
+    ├── ParametersServiceProvider.php
+    └── PrefixedProvider.php
 ```
 
 See the constructor arguments of each for the options they take. Contributions welcome!
@@ -127,16 +158,18 @@ If you discover any security related issues, please email heroes@madewithlove.be
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[ico-version]: https://img.shields.io/packagist/v/madewithlove/definitions.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/madewithlove/service-providers.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/madewithlove/service-providers.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/madewithlove/definitions/master.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/madewithlove/definitions.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/madewithlove/definitions.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/madewithlove/definitions.svg?style=flat-square
-[link-packagist]: https://packagist.org/packages/madewithlove/definitions
-[link-travis]: https://travis-ci.org/madewithlove/definitions
-[link-scrutinizer]: https://scrutinizer-ci.com/g/madewithlove/definitions/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/madewithlove/definitions
-[link-downloads]: https://packagist.org/packages/madewithlove/definitions
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/madewithlove/service-providers.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/madewithlove/service-providers/master.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/madewithlove/service-providers.svg?style=flat-square
+[league/container]: http://container.thephpleague.com/
 [link-author]: https://github.com/Anahkiasen
+[link-code-quality]: https://scrutinizer-ci.com/g/madewithlove/service-providers
 [link-contributors]: ../../contributors
+[link-downloads]: https://packagist.org/packages/madewithlove/service-providers
+[link-packagist]: https://packagist.org/packages/madewithlove/service-providers
+[link-scrutinizer]: https://scrutinizer-ci.com/g/madewithlove/service-providers/code-structure
+[link-travis]: https://travis-ci.org/madewithlove/service-providers
+[service-provider]: https://github.com/container-interop/service-provider
