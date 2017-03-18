@@ -42,4 +42,14 @@ class TwigServiceProviderTest extends TestCase
         $this->assertTrue($twig->isAutoReload());
         $this->assertTrue($twig->isDebug());
     }
+
+    public function testAlwaysUsesProperLoader()
+    {
+        $container = $this->getContainerfromProviders([
+            new TwigServiceProvider(__DIR__.'/foobar'),
+        ]);
+
+        $twig = $container->get(Twig_Environment::class);
+        $this->assertInstanceOf(Twig_Environment::class, $twig);
+    }
 }

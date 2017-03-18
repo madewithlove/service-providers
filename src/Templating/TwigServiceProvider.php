@@ -67,6 +67,10 @@ class TwigServiceProvider implements ServiceProviderInterface
      */
     public function getLoader()
     {
+        if (is_string($this->views) && !is_dir($this->views)) {
+            $this->views = [$this->views];
+        }
+
         $isViewsFolder = is_string($this->views) && is_dir($this->views);
         $loader = $isViewsFolder ? Twig_Loader_Filesystem::class : Twig_Loader_Array::class;
 
