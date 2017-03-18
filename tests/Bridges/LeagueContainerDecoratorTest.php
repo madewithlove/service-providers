@@ -30,4 +30,19 @@ class LeagueContainerDecoratorTest extends TestCase
         $this->assertArrayHasKey('foo', $globals);
         $this->assertEquals('bar', $globals['foo']);
     }
+
+    public function testOrderOfProvidersDoesntMatter()
+    {
+        $this->markTestSkipped('Blocked by https://github.com/thephpleague/container/issues/102');
+
+        $container = new LeagueContainerDecorator(new Container());
+        $container->addServiceProvider(new TwigServiceProvider());
+        $container->addServiceProvider(new DummyServiceProvider());
+
+        $twig = $container->get(Twig_Environment::class);
+        $globals = $twig->getGlobals();
+
+        $this->assertArrayHasKey('foo', $globals);
+        $this->assertEquals('bar', $globals['foo']);
+    }
 }
