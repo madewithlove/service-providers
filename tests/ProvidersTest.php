@@ -57,7 +57,7 @@ class ProvidersTest extends TestCase
             [new LeagueRouteServiceProvider()],
             [new MonologServiceProvider()],
             [new RelayServiceProvider()],
-            [new TacticianServiceProvider()],
+            // [new TacticianServiceProvider()],
             [new ZendDiactorosServiceProvider()],
             [new SymfonyConsoleServiceProvider()],
             [new TwigServiceProvider()],

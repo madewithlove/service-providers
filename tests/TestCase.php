@@ -11,7 +11,6 @@
 namespace Madewithlove\ServiceProviders;
 
 use League\Container\Container;
-use League\Container\ReflectionContainer;
 use Madewithlove\ServiceProviders\Bridges\LeagueContainerDecorator;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
@@ -23,10 +22,9 @@ abstract class TestCase extends \PHPUnit\Framework\TestCase
      */
     protected function getContainerfromProviders(array $providers = [])
     {
-        $container = new Container();
-        $container->delegate(new ReflectionContainer());
+        $container = new LeagueContainerDecorator(new Container());
         foreach ($providers as $provider) {
-            $container->addServiceProvider(new LeagueContainerDecorator($provider));
+            $container->addServiceProvider($provider);
         }
 
         return $container;

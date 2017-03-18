@@ -70,18 +70,6 @@ class TacticianServiceProvider implements ServiceProviderInterface
     /**
      * @param ContainerInterface $container
      *
-     * @return CommandBus
-     */
-    public function getCommandBus(ContainerInterface $container)
-    {
-        return new CommandBus([
-            $container->get(Middleware::class),
-        ]);
-    }
-
-    /**
-     * @param ContainerInterface $container
-     *
      * @return Middleware
      */
     public function getHandlerMiddleware(ContainerInterface $container)
@@ -91,5 +79,17 @@ class TacticianServiceProvider implements ServiceProviderInterface
             $container->get($this->locator),
             $container->get($this->inflector)
         );
+    }
+
+    /**
+     * @param ContainerInterface $container
+     *
+     * @return CommandBus
+     */
+    public function getCommandBus(ContainerInterface $container)
+    {
+        return new CommandBus([
+            $container->get(Middleware::class),
+        ]);
     }
 }

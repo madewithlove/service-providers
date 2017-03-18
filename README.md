@@ -33,10 +33,8 @@ use League\League\Container;
 use Madewithlove\ServiceProviders\Bridges\LeagueContainerDecorator;
 use Madewithlove\ServiceProviders\Filesystem\FlysystemServiceProvider;
 
-$container = new Container();
-$container->addServiceProvider(
-    new LeagueContainerDecorator(new FlysystemServiceProvider(...))
-);
+$container = new LeagueContainerDecorator(new Container());
+$container->addServiceProvider(new FlysystemServiceProvider(...)));
 
 $filesystem = $container->get(FilesystemInterface::class);
 ```

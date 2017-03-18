@@ -20,7 +20,7 @@ class FactoryMuffinServiceProviderTest extends TestCase
     public function testCanLoadFactories()
     {
         $container = $this->getContainerfromProviders([
-            new FactoryMuffinServiceProvider(realpath(__DIR__.'/../Dummies')),
+            new FactoryMuffinServiceProvider(realpath(__DIR__.'/../Factories')),
         ]);
 
         $container->get(Factory::class);
