@@ -11,7 +11,10 @@
 namespace Madewithlove\ServiceProviders\Bridges;
 
 use League\Container\Container;
+use League\Container\ReflectionContainer;
+use League\Route\RouteCollection;
 use Madewithlove\ServiceProviders\Dummies\DummyServiceProvider;
+use Madewithlove\ServiceProviders\Http\LeagueRouteServiceProvider;
 use Madewithlove\ServiceProviders\Templating\TwigServiceProvider;
 use Madewithlove\ServiceProviders\TestCase;
 use Twig_Environment;
@@ -29,6 +32,16 @@ class LeagueContainerDecoratorTest extends TestCase
 
         $this->assertArrayHasKey('foo', $globals);
         $this->assertEquals('bar', $globals['foo']);
+    }
+
+    public function testDoesntTryToAutowirePrevious()
+    {
+        $container = new LeagueContainerDecorator(new Container());
+        $container->delegate(new ReflectionContainer());
+        $container->addServiceProvider(new LeagueRouteServiceProvider());
+
+        $routes = $container->get(RouteCollection::class);
+        $this->assertInstanceOf(RouteCollection::class, $routes);
     }
 
     public function testOrderOfProvidersDoesntMatter()

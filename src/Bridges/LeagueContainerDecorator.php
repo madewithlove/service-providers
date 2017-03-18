@@ -44,7 +44,7 @@ class LeagueContainerDecorator implements ContainerInterface
     {
         if ($provider instanceof ServiceProviderInterface) {
             foreach ($provider->getServices() as $key => $callable) {
-                if (!$this->container->has($key)) {
+                if (!$this->container->hasShared($key)) {
                     $this->container->share($key, function () use ($callable) {
                         return $callable($this);
                     });
